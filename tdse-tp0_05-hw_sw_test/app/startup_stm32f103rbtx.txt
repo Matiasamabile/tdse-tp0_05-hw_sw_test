@@ -1,0 +1,10 @@
+
+Este archivo en ensamblador es el startup file para un microcontrolador STM32F103xB basado en un Cortex-M3. Su propósito es configurar el entorno antes de ejecutar el código de la aplicación.
+Este código configura la memoria y los vectores de interrupción antes de ejecutar main().
+
+Tipos de datos	
+Registros, punteros, constantes
+Estructuras de datos	Tabla de vectores, segmentos de memoria
+Arrays de estructuras	g_pfnVectors (array de punteros a funciones)
+Métodos	Reset_Handler, Default_Handler, SystemInit
+Patrones de diseño	Inicialización secuencial, tabla de despacho, implementación débil

@@ -1,0 +1,29 @@
+  task_a.c (task_a.h) 
+   Blocking Code
+
+...
+
+  task_b.c (task_b.h)
+   Non-Blocking Code
+
+...
+
+  task_c.c (task_c.h)
+   Update by Time Code
+
+...
+
+task_a.c usa código bloqueante con una ejecución síncrona.
+task_b.c usa código no bloqueante, gestionando estado sin retardos innecesarios.
+task_c.c usa control basado en tiempo, protegiendo variables compartidas.
+Cada implementación tiene ventajas dependiendo del uso en sistemas embebidos o multitareas.
+
+Aspecto	task_a.c (Bloqueante)	task_b.c (No Bloqueante)	task_c.c (Basado en Tiempo)
+Tipos de Datos	uint32_t, const char *	uint32_t, static uint32_t, const char *	uint32_t, volatile uint32_t, bool, const char *
+Estructuras de Datos	Variables globales y locales	Uso de variables estáticas	Uso de banderas y variables compartidas
+Arrays de Estructuras	No utiliza	No utiliza	No utiliza
+Métodos	task_a_init, task_a_update	task_b_init, task_b_update	task_c_init, task_c_update
+Patrón de Diseño	Código bloqueante, ejecución síncrona	Código no bloqueante, conserva estado con static	Basado en eventos de tiempo, protege recursos compartidos
+Estructuras de Control	Bucle for que bloquea la ejecución	if condicional y comparación de tiempo (HAL_GetTick())	while controlado por una bandera y protección de interrupciones
+Manejo de Estado	Reinicia valores en cada ejecución	Usa variables estáticas para recordar valores previos	Usa volatile y protección de interrupciones (CPSID i / CPSIE i)
+Aplicación	Útil para tareas críticas que deben completarse sin interrupción	Ideal para sistemas multitarea donde se requiere respuesta rápida	Adecuado para eventos basados en tiempo, como timers o interrupciones

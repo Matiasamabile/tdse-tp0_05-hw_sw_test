@@ -1,0 +1,33 @@
+  app.c (app.h)
+   Endless loops, which execute tasks with fixed computing time. This 
+   sequential execution is only deviated from when an interrupt event occurs.
+
+...
+
+Este archivo implementa la lógica principal de una aplicación basada en tareas.
+
+Flujo principal del programa:
+Inicializa la aplicación en app_init():
+
+Muestra mensajes por consola (LOGGER_LOG).
+Inicializa contadores y variables globales.
+Llama a task_a_init(), task_b_init(), task_c_init().
+Configura el contador de ciclos (cycle_counter_init()).
+Ejecuta la actualización de la aplicación en app_update():
+
+Verifica si debe ejecutar tareas (if (G_APP_TICK_CNT_INI < g_app_tick_cnt)).
+Llama a task_a_update(), task_b_update(), task_c_update().
+Mide el tiempo de ejecución de cada tarea (cycle_counter_time_us()).
+Guarda el peor tiempo de ejecución (WCET, Worst-Case Execution Time).
+Manejo del timer en HAL_SYSTICK_Callback():
+
+Incrementa g_app_tick_cnt, usado para controlar la ejecución de tareas.
+
+
+Aspecto	Ejemplo en el código
+Tipos de datos	uint32_t, punteros a funciones (void (*task_init)(void *))
+Estructuras de datos	task_cfg_t, task_dta_t
+Arrays de estructuras	task_cfg_list[] (lista de tareas)
+Métodos (Funciones)	app_init(), app_update(), HAL_SYSTICK_Callback()
+Patrones de diseño	Arquitectura basada en tareas, despacho por eventos, profiling, logging
+Este código organiza y ejecuta tareas en un sistema embebido, midiendo su rendimiento y respondiendo a eventos de temporización.
